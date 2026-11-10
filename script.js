@@ -110,28 +110,75 @@ document.addEventListener("DOMContentLoaded", () => {
     const contactForm = document.querySelector("#contact-form");
 
     if (contactForm) {
+        const referenceInput = contactForm.querySelector("#contact-references");
+        const referenceList = contactForm.querySelector("#selected-reference-files");
+
+        if (!referenceInput || !referenceList) {
+            throw new Error("Contact form reference-file controls are missing from the page.");
+        }
+
+        referenceInput.addEventListener("change", () => {
+            const fileNames = Array.from(referenceInput.files, (file) => file.name);
+            referenceList.textContent = fileNames.length
+                ? `Selected: ${fileNames.join(", ")}`
+                : "";
+            referenceList.hidden = fileNames.length === 0;
+        });
+
         contactForm.addEventListener("submit", (event) => {
             event.preventDefault();
 
             const formData = new FormData(contactForm);
             const phone = formData.get("phone")?.toString().trim();
+            const name = formData.get("name")?.toString().trim();
+            const email = formData.get("email")?.toString().trim();
+            const interest = formData.get("interest")?.toString();
+            const formMessage = formData.get("message")?.toString().trim();
+            const referenceFiles = Array.from(referenceInput.files, (file) => file.name);
 
             const message = [
-                `Hello AZ Creation Hub! My name is ${formData.get("name")}.`,
-                `Email: ${formData.get("email")}`,
+                `Hello AZ Creation Hub! My name is ${name}.`,
+                `Email: ${email}`,
                 `Phone: ${phone}`,
-                `I'm interested in: ${formData.get("interest")}`,
-                `Message: ${formData.get("message")}`
+                `I'm interested in: ${interest}`,
+                `Message: ${formMessage}`,
+                ...(referenceFiles.length
+                    ? [`Reference files to attach: ${referenceFiles.join(", ")}`]
+                    : [])
             ].join("\n");
 
-            const whatsappUrl =
+            const whatsappLink = document.querySelector("#send-whatsapp");
+            const emailLink = document.querySelector("#send-email");
+            const sendOptions = document.querySelector("#contact-send-options");
+
+            if (!whatsappLink || !emailLink || !sendOptions) {
+                throw new Error("Contact form send options are missing from the page.");
+            }
+
+            whatsappLink.href =
                 `https://wa.me/2347077909619?text=${encodeURIComponent(message)}`;
 
-            window.open(
-                whatsappUrl,
-                "_blank",
-                "noopener,noreferrer"
-            );
+            const subject = `Project inquiry from ${name}`;
+            const recipient = "abdulazizusmanaum01@mail.com";
+            const gmailUrl = new URL("https://mail.google.com/mail/");
+            gmailUrl.searchParams.set("view", "cm");
+            gmailUrl.searchParams.set("fs", "1");
+            gmailUrl.searchParams.set("to", recipient);
+            gmailUrl.searchParams.set("su", subject);
+            gmailUrl.searchParams.set("body", message);
+            emailLink.href = gmailUrl.toString();
+
+            const emailAppLink = document.querySelector("#send-email-app");
+            if (!emailAppLink) {
+                throw new Error("Email app fallback is missing from the contact form.");
+            }
+            emailAppLink.href =
+                `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
+            sendOptions.hidden = false;
+            sendOptions.querySelector(".form-note").textContent = referenceFiles.length
+                ? "Attach your selected reference files in WhatsApp or email before sending."
+                : "Choose how you’d like to send your message:";
         });
     }
 

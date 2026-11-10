@@ -193,10 +193,31 @@
                               required></textarea>
                 </div>
 
+                <div class="form-row">
+                    <label for="contact-references">Sample or reference files (optional)</label>
+                    <input id="contact-references" name="references" type="file"
+                           accept="image/*,.pdf,.doc,.docx" multiple>
+                    <p class="form-note">Choose images or documents that show what you have in mind.</p>
+                    <p class="form-note" id="selected-reference-files" aria-live="polite" hidden></p>
+                    <p class="form-note">Files are not attached automatically. Attach them in WhatsApp or your email before sending.</p>
+                </div>
+
                 <button class="btn-primary contact-submit" type="submit">
-                    Send via WhatsApp <i class="fa-brands fa-whatsapp"></i>
+                    Send message <i class="fa-solid fa-arrow-right"></i>
                 </button>
-                <p class="form-note">Your message will open in WhatsApp for you to send.</p>
+                <div class="contact-send-options" id="contact-send-options" aria-live="polite" hidden>
+                    <p class="form-note">Choose how you’d like to send your message:</p>
+                    <div class="contact-send-buttons">
+                        <a class="btn-primary" id="send-whatsapp" href="#" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
+                        </a>
+                        <a class="btn-secondary" id="send-email" href="#" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-envelope" aria-hidden="true"></i> Open email
+                        </a>
+                    </div>
+                    <a class="contact-email-fallback" id="send-email-app" href="#">Use your device’s email app instead</a>
+                </div>
+                <p class="form-note">After you submit, choose WhatsApp or email to send your message.</p>
             </form>
         </section>
     </main>
@@ -288,6 +309,12 @@
             </div>
         </div>
 
+        <a class="email-float"
+           href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=abdulazizusmanaum01%40mail.com"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Email AZ Creation Hub">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        </a>
         <button class="whatsapp-float" type="button"
                 onclick="toggleWhatsApp()" aria-label="Open WhatsApp chat">
             <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>

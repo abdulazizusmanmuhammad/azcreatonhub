@@ -1584,6 +1584,12 @@ a {
     transition: var(--transition);
 }
 
+.portfolio-project-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 .portfolio-card:hover {
     transform: translateY(-6px);
     border-color: var(--primary-color);
@@ -1648,6 +1654,26 @@ a {
     margin: 28px auto 0;
     text-align: center;
     font-size: 13px;
+}
+
+.portfolio-link-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 14px;
+    color: var(--secondary-color);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.portfolio-link-note:hover {
+    color: var(--text-color);
+}
+
+.featured-projects-link {
+    margin-top: 24px;
+    text-align: center;
 }
 
 .portfolio-cta {

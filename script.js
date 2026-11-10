@@ -114,10 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
 
             const formData = new FormData(contactForm);
+            const phone = formData.get("phone")?.toString().trim();
 
             const message = [
                 `Hello AZ Creation Hub! My name is ${formData.get("name")}.`,
                 `Email: ${formData.get("email")}`,
+                `Phone: ${phone}`,
                 `I'm interested in: ${formData.get("interest")}`,
                 `Message: ${formData.get("message")}`
             ].join("\n");

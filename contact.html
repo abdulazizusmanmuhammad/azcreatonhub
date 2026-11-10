@@ -49,7 +49,10 @@
                           stroke="url(#logoGradient)" stroke-width="6"
                           stroke-linejoin="round"/>
                 </svg>
-                <span>AZ <span>Creation Hub</span></span>
+                <span class="brand-lockup">
+                    <span class="brand-name">AZ <span>Creation Hub</span></span>
+                    <span class="brand-tagline">Turning Ideas Into Digital Reality.</span>
+                </span>
             </a>
 
             <ul class="nav-links" id="nav-links">
@@ -139,7 +142,7 @@
 
     <div class="contact-next-grid">
         <article>
-            <span>01</span>
+            <span>01</span>i can 
             <h3>Send your message</h3>
             <p>Tell us what you need using the form or WhatsApp.</p>
         </article>
@@ -194,12 +197,10 @@
                 </div>
 
                 <div class="form-row">
-                    <label for="contact-references">Sample or reference files (optional)</label>
-                    <input id="contact-references" name="references" type="file"
-                           accept="image/*,.pdf,.doc,.docx" multiple>
-                    <p class="form-note">Choose images or documents that show what you have in mind.</p>
-                    <p class="form-note" id="selected-reference-files" aria-live="polite" hidden></p>
-                    <p class="form-note">Files are not attached automatically. Attach them in WhatsApp or your email before sending.</p>
+                    <label for="contact-reference-url">Sample image or reference URL (optional)</label>
+                    <input id="contact-reference-url" name="referenceUrl" type="url"
+                           placeholder="https://example.com/your-reference-image">
+                    <p class="form-note">Upload your sample to a file-sharing service, then paste a link that we can open.</p>
                 </div>
 
                 <button class="btn-primary contact-submit" type="submit">

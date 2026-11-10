@@ -110,21 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const contactForm = document.querySelector("#contact-form");
 
     if (contactForm) {
-        const referenceInput = contactForm.querySelector("#contact-references");
-        const referenceList = contactForm.querySelector("#selected-reference-files");
-
-        if (!referenceInput || !referenceList) {
-            throw new Error("Contact form reference-file controls are missing from the page.");
-        }
-
-        referenceInput.addEventListener("change", () => {
-            const fileNames = Array.from(referenceInput.files, (file) => file.name);
-            referenceList.textContent = fileNames.length
-                ? `Selected: ${fileNames.join(", ")}`
-                : "";
-            referenceList.hidden = fileNames.length === 0;
-        });
-
         contactForm.addEventListener("submit", (event) => {
             event.preventDefault();
 
@@ -134,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const email = formData.get("email")?.toString().trim();
             const interest = formData.get("interest")?.toString();
             const formMessage = formData.get("message")?.toString().trim();
-            const referenceFiles = Array.from(referenceInput.files, (file) => file.name);
+            const referenceUrl = formData.get("referenceUrl")?.toString().trim();
 
             const message = [
                 `Hello AZ Creation Hub! My name is ${name}.`,
@@ -142,8 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 `Phone: ${phone}`,
                 `I'm interested in: ${interest}`,
                 `Message: ${formMessage}`,
-                ...(referenceFiles.length
-                    ? [`Reference files to attach: ${referenceFiles.join(", ")}`]
+                ...(referenceUrl
+                    ? [`Sample/reference link: ${referenceUrl}`]
                     : [])
             ].join("\n");
 
@@ -174,11 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             emailAppLink.href =
                 `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-
             sendOptions.hidden = false;
-            sendOptions.querySelector(".form-note").textContent = referenceFiles.length
-                ? "Attach your selected reference files in WhatsApp or email before sending."
-                : "Choose how you’d like to send your message:";
+            sendOptions.querySelector(".form-note").textContent =
+                "Choose how you’d like to send your message:";
         });
     }
 
